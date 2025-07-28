@@ -1,0 +1,51 @@
+{
+  "name": "desktop-todo",
+  "version": "1.0.0",
+  "description": "一个基于 Electron 开发的桌面待办事项应用程序，具有现代化界面和丰富功能，支持系统托盘、开机启动、优先级管理等特性",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never"
+  },
+  "keywords": ["electron", "todo", "desktop", "productivity", "task-manager", "reminder", "system-tray", "floating", "桌面应用", "待办事项"],
+  "author": "Desktop Todo Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/desktop-todo.git"
+  },
+  "homepage": "https://github.com/your-username/desktop-todo#readme",
+  "bugs": {
+    "url": "https://github.com/your-username/desktop-todo/issues"
+  },
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "auto-launch": "^5.0.5"
+  },
+  "build": {
+    "appId": "com.desktop.bookmark",
+    "productName": "Desktop Todo",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules",
+      "!dist"
+    ],
+    "win": {
+      "target": "nsis",
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createStartMenuShortcut": true,
+      "createDesktopShortcut": true
+    }
+  }
+}

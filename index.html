@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desktop Bookmark</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- 标题栏 -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <span class="app-title">📝 待办事项</span>
+            </div>
+            <div class="title-bar-right">
+                <button id="settingsBtn" class="title-btn" title="设置">⚙️</button>
+                <button id="pinBtn" class="title-btn" title="置顶">📌</button>
+                <button id="minimizeBtn" class="title-btn" title="最小化">➖</button>
+                <button id="closeBtn" class="title-btn close" title="关闭">✖️</button>
+            </div>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="content">
+            <!-- 待办事项列表 -->
+            <div id="todosList" class="todos-list">
+                <!-- 待办事项将在这里动态生成 -->
+            </div>
+
+            <!-- 添加待办事项按钮 -->
+            <div class="add-todo">
+                <button id="addTodoBtn" class="add-btn">+ 添加待办事项</button>
+            </div>
+        </div>
+
+        <!-- 设置面板 -->
+        <div id="settingsPanel" class="settings-panel hidden">
+            <div class="settings-header">
+                <h3>设置</h3>
+                <button id="closeSettingsBtn" class="close-settings">✖️</button>
+            </div>
+            <div class="settings-content">
+                <div class="setting-item">
+                    <label for="backgroundColorPicker">背景颜色:</label>
+                    <input type="color" id="backgroundColorPicker" value="#ffffff">
+                </div>
+                <div class="setting-item">
+                    <label for="opacitySlider">透明度:</label>
+                    <input type="range" id="opacitySlider" min="0.3" max="1" step="0.1" value="0.9">
+                    <span id="opacityValue">90%</span>
+                </div>
+                <div class="setting-item">
+                    <label for="fontSizeSlider">字体大小:</label>
+                    <input type="range" id="fontSizeSlider" min="10" max="20" step="1" value="14">
+                    <span id="fontSizeValue">14px</span>
+                </div>
+                <div class="setting-item">
+                    <label for="autoLaunchCheckbox">
+                        <input type="checkbox" id="autoLaunchCheckbox">
+                        开机启动
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>

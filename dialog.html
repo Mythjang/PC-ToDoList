@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>待办事项</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: white;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dialog-header {
+            height: 50px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            -webkit-app-region: drag;
+        }
+
+        .dialog-header h3 {
+            color: #333;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .close-btn {
+            width: 30px;
+            height: 30px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #666;
+            transition: all 0.2s ease;
+            -webkit-app-region: no-drag;
+        }
+
+        .close-btn:hover {
+            background: #ff5f57;
+            color: white;
+        }
+
+        .dialog-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .input-group input,
+        .input-group textarea,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+            font-family: inherit;
+        }
+
+        .input-group input:focus,
+        .input-group textarea:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #007acc;
+        }
+
+        .input-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+        }
+
+        .dialog-footer {
+            padding: 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+        }
+
+        .btn-save {
+            background: #007acc;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #005a9e;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+            margin-right: auto;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="dialog-header">
+        <h3 id="dialogTitle">添加待办事项</h3>
+        <button id="closeBtn" class="close-btn">✖️</button>
+    </div>
+    
+    <div class="dialog-body">
+        <div class="input-group">
+            <label for="todoTitle">标题 *</label>
+            <input type="text" id="todoTitle" placeholder="输入待办事项标题" required>
+        </div>
+        
+        <div class="input-group">
+            <label for="todoDescription">描述</label>
+            <textarea id="todoDescription" placeholder="详细描述（可选）"></textarea>
+        </div>
+        
+        <div class="input-group">
+            <label for="todoPriority">优先级</label>
+            <select id="todoPriority">
+                <option value="low">🟢 低优先级</option>
+                <option value="medium" selected>🟡 中优先级</option>
+                <option value="high">🔴 高优先级</option>
+            </select>
+        </div>
+        
+        <div class="input-group">
+            <label for="todoDueDate">截止时间</label>
+            <input type="datetime-local" id="todoDueDate">
+        </div>
+        
+        <div class="input-group">
+            <div class="checkbox-group">
+                <input type="checkbox" id="todoReminder">
+                <label for="todoReminder">启用提醒通知</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="dialog-footer">
+        <button id="deleteBtn" class="btn btn-delete" style="display: none;">删除</button>
+        <button id="cancelBtn" class="btn btn-cancel">取消</button>
+        <button id="saveBtn" class="btn btn-save">保存</button>
+    </div>
+
+    <script>
+        const { ipcRenderer } = require('electron');
+        
+        let currentTodo = null;
+        let isEditMode = false;
+        
+        // DOM 元素
+        const dialogTitle = document.getElementById('dialogTitle');
+        const todoTitle = document.getElementById('todoTitle');
+        const todoDescription = document.getElementById('todoDescription');
+        const todoPriority = document.getElementById('todoPriority');
+        const todoDueDate = document.getElementById('todoDueDate');
+        const todoReminder = document.getElementById('todoReminder');
+        const closeBtn = document.getElementById('closeBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const deleteBtn = document.getElementById('deleteBtn');
+        
+        // 接收待办事项数据
+        ipcRenderer.on('load-todo-data', (event, todoData) => {
+            if (todoData) {
+                currentTodo = todoData;
+                isEditMode = true;
+                loadTodoData(todoData);
+            }
+        });
+        
+        // 加载待办事项数据到表单
+        function loadTodoData(todo) {
+            dialogTitle.textContent = '编辑待办事项';
+            todoTitle.value = todo.title || '';
+            todoDescription.value = todo.description || '';
+            todoPriority.value = todo.priority || 'medium';
+            
+            if (todo.dueDate) {
+                const date = new Date(todo.dueDate);
+                const localDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+                todoDueDate.value = localDate.toISOString().slice(0, 16);
+            }
+            
+            todoReminder.checked = todo.reminder || false;
+            deleteBtn.style.display = 'block';
+        }
+        
+        // 保存待办事项
+        function saveTodo() {
+            const title = todoTitle.value.trim();
+            if (!title) {
+                alert('请输入待办事项标题');
+                todoTitle.focus();
+                return;
+            }
+            
+            const todoData = {
+                id: currentTodo ? currentTodo.id : Date.now().toString(),
+                title: title,
+                description: todoDescription.value.trim(),
+                priority: todoPriority.value,
+                dueDate: todoDueDate.value ? new Date(todoDueDate.value).toISOString() : null,
+                reminder: todoReminder.checked,
+                completed: currentTodo ? currentTodo.completed : false,
+                createdAt: currentTodo ? currentTodo.createdAt : new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            ipcRenderer.invoke('save-todo-from-dialog', todoData);
+        }
+        
+        // 删除待办事项
+        function deleteTodo() {
+            if (confirm('确定要删除这个待办事项吗？')) {
+                const todoData = {
+                    ...currentTodo,
+                    _action: 'delete'
+                };
+                ipcRenderer.invoke('save-todo-from-dialog', todoData);
+            }
+        }
+        
+        // 关闭对话框
+        function closeDialog() {
+            ipcRenderer.invoke('close-todo-dialog');
+        }
+        
+        // 事件监听
+        closeBtn.addEventListener('click', closeDialog);
+        cancelBtn.addEventListener('click', closeDialog);
+        saveBtn.addEventListener('click', saveTodo);
+        deleteBtn.addEventListener('click', deleteTodo);
+        
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeDialog();
+            } else if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+                saveTodo();
+            }
+        });
+        
+        // 自动聚焦标题输入框
+        setTimeout(() => {
+            todoTitle.focus();
+        }, 100);
+    </script>
+</body>
+</html>
