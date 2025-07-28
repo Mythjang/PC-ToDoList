@@ -6,9 +6,21 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
-    "dist": "electron-builder --publish=never"
+    "dist": "electron-builder --publish=never",
+    "package": "electron-packager . desktop-todo --platform=win32 --arch=x64 --out=dist --overwrite --icon=assets/icon.ico"
   },
-  "keywords": ["electron", "todo", "desktop", "productivity", "task-manager", "reminder", "system-tray", "floating", "桌面应用", "待办事项"],
+  "keywords": [
+    "electron",
+    "todo",
+    "desktop",
+    "productivity",
+    "task-manager",
+    "reminder",
+    "system-tray",
+    "floating",
+    "桌面应用",
+    "待办事项"
+  ],
   "author": "Desktop Todo Team",
   "license": "MIT",
   "repository": {
@@ -21,7 +33,8 @@
   },
   "devDependencies": {
     "electron": "^27.0.0",
-    "electron-builder": "^24.6.4"
+    "electron-builder": "^24.6.4",
+    "electron-packager": "^17.1.2"
   },
   "dependencies": {
     "auto-launch": "^5.0.5"
@@ -38,8 +51,15 @@
       "!dist"
     ],
     "win": {
-      "target": "nsis",
-      "icon": "assets/icon.ico"
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/256x256.ico"
     },
     "nsis": {
       "oneClick": false,

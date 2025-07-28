@@ -1,0 +1,68 @@
+<svg width="450" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- 主窗口背景（模糊效果） -->
+  <rect width="400" height="500" x="25" y="50" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="8" opacity="0.7"/>
+  
+  <!-- 对话框背景 -->
+  <rect width="350" height="450" x="50" y="75" fill="white" stroke="#dee2e6" stroke-width="2" rx="8" filter="drop-shadow(0 4px 8px rgba(0,0,0,0.1))"/>
+  
+  <!-- 对话框标题栏 -->
+  <rect width="350" height="40" x="50" y="75" fill="#6c757d" rx="8" ry="8"/>
+  <rect width="350" height="32" x="50" y="83" fill="#6c757d"/>
+  
+  <!-- 标题文字 -->
+  <text x="70" y="98" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">编辑待办事项</text>
+  
+  <!-- 关闭按钮 -->
+  <circle cx="375" cy="95" r="8" fill="#dc3545"/>
+  <text x="375" y="99" fill="white" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">×</text>
+  
+  <!-- 标题标签 -->
+  <text x="70" y="140" font-family="Arial, sans-serif" font-size="12" font-weight="bold">标题 *</text>
+  
+  <!-- 标题输入框 -->
+  <rect x="70" y="150" width="310" height="35" fill="white" stroke="#ced4da" stroke-width="1" rx="4"/>
+  <text x="80" y="170" font-family="Arial, sans-serif" font-size="14">今日小结</text>
+  
+  <!-- 描述标签 -->
+  <text x="70" y="210" font-family="Arial, sans-serif" font-size="12" font-weight="bold">描述</text>
+  
+  <!-- 描述输入框 -->
+  <rect x="70" y="220" width="310" height="80" fill="white" stroke="#ced4da" stroke-width="1" rx="4"/>
+  <text x="80" y="240" font-family="Arial, sans-serif" font-size="14">今天下班前需要将小结提交给总监</text>
+  
+  <!-- 优先级标签 -->
+  <text x="70" y="330" font-family="Arial, sans-serif" font-size="12" font-weight="bold">优先级</text>
+  
+  <!-- 优先级下拉框 -->
+  <rect x="70" y="340" width="310" height="35" fill="white" stroke="#ced4da" stroke-width="1" rx="4"/>
+  <circle cx="85" cy="357" r="4" fill="#ffc107"/>
+  <text x="100" y="361" font-family="Arial, sans-serif" font-size="14">中优先级</text>
+  <polygon points="360,352 365,357 360,362" fill="#6c757d"/>
+  
+  <!-- 截止时间标签 -->
+  <text x="70" y="400" font-family="Arial, sans-serif" font-size="12" font-weight="bold">截止时间</text>
+  
+  <!-- 截止时间输入框 -->
+  <rect x="70" y="410" width="310" height="35" fill="white" stroke="#ced4da" stroke-width="1" rx="4"/>
+  <text x="80" y="430" font-family="Arial, sans-serif" font-size="14">2025/07/28 20:00</text>
+  <rect x="350" y="418" width="20" height="20" fill="#f8f9fa" stroke="#ced4da" stroke-width="1" rx="2"/>
+  <text x="360" y="430" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">📅</text>
+  
+  <!-- 启用提醒复选框 -->
+  <rect x="70" y="465" width="16" height="16" fill="#007bff" stroke="#007bff" stroke-width="1" rx="2"/>
+  <path d="M 73 473 L 76 476 L 83 469" stroke="white" stroke-width="2" fill="none"/>
+  <text x="95" y="477" font-family="Arial, sans-serif" font-size="14">启用提醒通知</text>
+  
+  <!-- 按钮区域 -->
+  <!-- 删除按钮 -->
+  <rect x="70" y="500" width="80" height="35" fill="#dc3545" stroke="#dc3545" stroke-width="1" rx="4"/>
+  <text x="110" y="520" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">删除</text>
+  
+  <!-- 取消按钮 -->
+  <rect x="200" y="500" width="80" height="35" fill="#6c757d" stroke="#6c757d" stroke-width="1" rx="4"/>
+  <text x="240" y="520" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">取消</text>
+  
+  <!-- 保存按钮 -->
+  <rect x="300" y="500" width="80" height="35" fill="#007bff" stroke="#007bff" stroke-width="1" rx="4"/>
+  <text x="340" y="520" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">保存</text>
+</svg>

@@ -1,0 +1,45 @@
+<svg width="400" height="500" xmlns="http://www.w3.org/2000/svg">
+  <!-- 窗口背景 -->
+  <rect width="400" height="500" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="8"/>
+  
+  <!-- 标题栏 -->
+  <rect width="400" height="40" fill="#6c757d" rx="8" ry="8"/>
+  <rect width="400" height="32" fill="#6c757d"/>
+  
+  <!-- 标题文字 -->
+  <text x="20" y="25" fill="white" font-family="Arial, sans-serif" font-size="14" font-weight="bold">待办事项</text>
+  
+  <!-- 窗口控制按钮 -->
+  <circle cx="350" cy="20" r="6" fill="#dc3545"/>
+  <circle cx="370" cy="20" r="6" fill="#ffc107"/>
+  <circle cx="330" cy="20" r="6" fill="#28a745"/>
+  
+  <!-- 添加按钮 -->
+  <rect x="20" y="60" width="360" height="40" fill="#007bff" rx="4" stroke="#0056b3" stroke-width="1"/>
+  <text x="200" y="82" fill="white" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">+ 添加待办事项</text>
+  
+  <!-- 待办事项列表 -->
+  <!-- 第一个待办事项 -->
+  <rect x="20" y="120" width="360" height="60" fill="white" stroke="#dee2e6" stroke-width="1" rx="4"/>
+  <circle cx="40" cy="140" r="8" fill="none" stroke="#6c757d" stroke-width="2"/>
+  <circle cx="350" cy="140" r="4" fill="#ffc107"/>
+  <text x="60" y="145" font-family="Arial, sans-serif" font-size="14" font-weight="bold">今日小结</text>
+  <text x="60" y="165" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">今天下班前需要将小结提交给总监</text>
+  
+  <!-- 第二个待办事项 -->
+  <rect x="20" y="190" width="360" height="60" fill="white" stroke="#dee2e6" stroke-width="1" rx="4"/>
+  <circle cx="40" cy="210" r="8" fill="none" stroke="#6c757d" stroke-width="2"/>
+  <circle cx="350" cy="210" r="4" fill="#28a745"/>
+  <text x="60" y="215" font-family="Arial, sans-serif" font-size="14" font-weight="bold">项目A</text>
+  <text x="60" y="235" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">完成项目</text>
+  
+  <!-- 第三个待办事项（已完成） -->
+  <rect x="20" y="260" width="360" height="60" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="4"/>
+  <circle cx="40" cy="280" r="8" fill="#28a745" stroke="#28a745" stroke-width="2"/>
+  <path d="M 35 280 L 38 283 L 45 276" stroke="white" stroke-width="2" fill="none"/>
+  <text x="60" y="285" font-family="Arial, sans-serif" font-size="14" fill="#6c757d" text-decoration="line-through">会议准备</text>
+  <text x="60" y="305" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">准备明天的项目会议材料</text>
+  
+  <!-- 底部状态 -->
+  <text x="20" y="450" font-family="Arial, sans-serif" font-size="12" fill="#6c757d">共 3 项任务，1 项已完成</text>
+</svg>
