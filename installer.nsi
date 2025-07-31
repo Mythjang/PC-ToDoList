@@ -3,7 +3,7 @@
 
 !define APP_NAME "Desktop Todo"
 !define APP_VERSION "1.0.1"
-!define APP_PUBLISHER "Desktop Todo Team"
+!define APP_PUBLISHER "Jang"
 !define APP_URL "https://github.com/Mythjang/PC-ToDoList"
 !define APP_EXE "desktop-todo.exe"
 !define APP_ICON "desktop-todo-win32-x64\resources\app\assets\256x256.ico"
