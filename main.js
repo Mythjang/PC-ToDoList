@@ -22,7 +22,7 @@ function createWindow() {
     frame: false,
     transparent: true,
     alwaysOnTop: false,
-    skipTaskbar: false,
+    skipTaskbar: true,
     resizable: true,
     webPreferences: {
       nodeIntegration: true,
